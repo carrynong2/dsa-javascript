@@ -90,11 +90,45 @@ class SinglyLinkedList {
     }
     return false;
   }
+  insert(index, val) {
+    if (index < 0 || index > this.length) {
+      return false;
+    }
+    if (index === this.length) {
+      return !!this.push(val);
+    }
+    if (index === 0) {
+      return !!this.unshift(val);
+    }
+    let newNode = new Node(val);
+    let prev = this.get(index - 1);
+    let temp = prev.next;
+    prev.next = newNode;
+    newNode.next = temp;
+    this.length++;
+    return true;
+  }
+  remove(index) {
+    if (index < 0 || index >= this.length) {
+      return undefined;
+    }
+    if (index === 0) {
+      return this.shift();
+    }
+    if (index === this.length - 1) {
+      return this.pop();
+    }
+    let previousNode = this.get(index - 1);
+    let removed = previousNode.next;
+    previousNode.next = remove.next;
+    this.length--;
+    return removed;
+  }
 }
 
 let list = new SinglyLinkedList();
 list.push("HELLO");
 list.push("YOU");
-console.log(list.get(1));
-list.set(1, "Nong");
-console.log(list.get(1));
+list.insert(1, "nong");
+list.remove(0);
+console.log(list);

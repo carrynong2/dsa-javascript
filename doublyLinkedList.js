@@ -70,11 +70,41 @@ class DoublyLinkedList {
     this.length++;
     return this;
   }
+  get(index) {
+    if (index < 0 || index >= this.length) {
+      return null;
+    }
+    let count, current;
+    if (index <= this.length / 2) {
+      count = 0;
+      current = this.head;
+      while (count !== index) {
+        current = current.next;
+        count++;
+      }
+    } else {
+      count = this.length - 1;
+      current = this.tail;
+      while (count !== index) {
+        current = current.prev;
+        count--;
+      }
+    }
+    return current;
+  }
+  set(index, val) {
+    let foundNode = this.get(index);
+    if (foundNode !== null) {
+      foundNode.val = val;
+      return true;
+    }
+    return false;
+  }
 }
 
 let list = new DoublyLinkedList();
 list.push(15);
 list.push(17);
 list.push(20);
-list.unshift(54);
-console.log(list);
+list.set(1, 28);
+console.log(list.get(1));
